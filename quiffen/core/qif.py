@@ -109,6 +109,7 @@ class Qif(BaseModel):
         separator: str = "\n",
         day_first: bool = False,
     ) -> Qif:
+        data = data.strip().strip("\n")
         accounts: Dict[str, Account] = {}
         last_account = None
         categories: Dict[str, Category] = {}
@@ -309,7 +310,7 @@ class Qif(BaseModel):
         if not path.exists():
             raise ParserException("The file does not exist.")
 
-        data = path.read_text(encoding=encoding).strip().strip("\n")
+        data = path.read_text(encoding=encoding)
 
         if not data:
             raise ParserException("The file is empty.")
