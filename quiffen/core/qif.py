@@ -105,7 +105,7 @@ class Qif(BaseModel):
     @classmethod
     def parse_data(
         cls,
-        data: Union[FilePath, str],
+        data: str,
         separator: str = "\n",
         day_first: bool = False,
     ) -> Qif:
