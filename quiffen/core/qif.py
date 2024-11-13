@@ -103,44 +103,12 @@ class Qif(BaseModel):
         )
 
     @classmethod
-    def parse(
+    def parse_data(
         cls,
-        path: Union[FilePath, str],
+        data: Union[FilePath, str],
         separator: str = "\n",
         day_first: bool = False,
-        encoding: str = "utf-8",
     ) -> Qif:
-        """Return a class instance from a QIF file.
-
-        Parameters
-        ----------
-        path : Union[FilePath, str]
-            The path to the QIF file.
-        separator : str, default='\n'
-            The line separator for the QIF file. This probably won't need
-            changing.
-        day_first : bool, default=False
-            Whether the day or month comes first in the date.
-        encoding : str, default='utf-8'
-            The encoding of the QIF file.
-
-        Returns
-        -------
-        Qif
-            A Qif object containing all the data in the QIF file.
-        """
-        path = Path(path)
-        if path.suffix.lower() != ".qif":
-            raise ParserException("The file must be a QIF file.")
-
-        if not path.exists():
-            raise ParserException("The file does not exist.")
-
-        data = path.read_text(encoding=encoding).strip().strip("\n")
-
-        if not data:
-            raise ParserException("The file is empty.")
-
         accounts: Dict[str, Account] = {}
         last_account = None
         categories: Dict[str, Category] = {}
@@ -306,6 +274,47 @@ class Qif(BaseModel):
             classes=classes,
             securities=securities,
         )
+
+    @classmethod
+    def parse(
+        cls,
+        path: Union[FilePath, str],
+        separator: str = "\n",
+        day_first: bool = False,
+        encoding: str = "utf-8",
+    ) -> Qif:
+        """Return a class instance from a QIF file.
+
+        Parameters
+        ----------
+        path : Union[FilePath, str]
+            The path to the QIF file.
+        separator : str, default='\n'
+            The line separator for the QIF file. This probably won't need
+            changing.
+        day_first : bool, default=False
+            Whether the day or month comes first in the date.
+        encoding : str, default='utf-8'
+            The encoding of the QIF file.
+
+        Returns
+        -------
+        Qif
+            A Qif object containing all the data in the QIF file.
+        """
+        path = Path(path)
+        if path.suffix.lower() != ".qif":
+            raise ParserException("The file must be a QIF file.")
+
+        if not path.exists():
+            raise ParserException("The file does not exist.")
+
+        data = path.read_text(encoding=encoding).strip().strip("\n")
+
+        if not data:
+            raise ParserException("The file is empty.")
+
+        return cls.parse_data(data, separator, day_first)
 
     def add_account(self, new_account: Account) -> None:
         """Add a new account to the Qif object"""
