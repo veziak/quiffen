@@ -846,7 +846,7 @@ def test_to_dict_with_ignore():
         to_account="Test To Account",
         category=Category(name="Test Category"),
     )
-    assert transaction.to_dict(ignore=["to_account"]) == {
+    assert transaction.to_dict(exclude=["to_account"]) == {
         "date": datetime(2022, 2, 1, 0, 0),
         "amount": Decimal("1000"),
         "memo": None,

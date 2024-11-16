@@ -434,18 +434,19 @@ class Qif(BaseModel):
         self,
         data_type: QifDataType = QifDataType.TRANSACTIONS,
         date_format: Optional[str] = "%Y-%m-%d",
-        ignore: Optional[List[str]] = None,
+        include: Optional[List[str]] = None,
+        exclude: Optional[List[str]] = None,
     ) -> List[Dict[str, Any]]:
         """Converts specified data from the Qif object to a list of dicts"""
-        if ignore is None:
-            ignore = []
+        if exclude is None:
+            exclude = []
 
         if data_type == QifDataType.TRANSACTIONS:
             data_dicts = []
             for account in self.accounts.values():
                 for transaction_list in account.transactions.values():
                     data_dicts += [
-                        transaction.to_dict(ignore=ignore)
+                        transaction.to_dict(include=include, exclude=exclude)
                         for transaction in transaction_list
                         if not isinstance(transaction, Investment)
                     ]
@@ -454,25 +455,25 @@ class Qif(BaseModel):
             for account in self.accounts.values():
                 for transaction_list in account.transactions.values():
                     data_dicts += [
-                        transaction.to_dict(ignore=ignore)
+                        transaction.to_dict(include=include, exclude=exclude)
                         for transaction in transaction_list
                         if isinstance(transaction, Investment)
                     ]
         elif data_type == QifDataType.ACCOUNTS:
             data_dicts = [
-                account.to_dict(ignore=ignore) for account in self.accounts.values()
+                account.to_dict(include=include, exclude=exclude) for account in self.accounts.values()
             ]
         elif data_type == QifDataType.CATEGORIES:
             data_dicts = [
-                category.to_dict(ignore=ignore) for category in self.categories.values()
+                category.to_dict(include=include, exclude=exclude) for category in self.categories.values()
             ]
         elif data_type == QifDataType.CLASSES:
             data_dicts = [
-                class_.to_dict(ignore=ignore) for class_ in self.classes.values()
+                class_.to_dict(include=include, exclude=exclude) for class_ in self.classes.values()
             ]
         elif data_type == QifDataType.SECURITIES:
             data_dicts = [
-                security.to_dict(ignore=ignore) for security in self.securities.values()
+                security.to_dict(include=include, exclude=exclude) for security in self.securities.values()
             ]
         else:
             raise ValueError(
@@ -486,7 +487,7 @@ class Qif(BaseModel):
                 {
                     k: v
                     for k, v in data_dict.items()
-                    if not k.startswith("_") and k not in ignore
+                    if not k.startswith("_") and k not in exclude
                 },
                 date_format=date_format,
             )
@@ -498,7 +499,8 @@ class Qif(BaseModel):
         path: Optional[Union[FilePath, str, None]] = None,
         data_type: QifDataType = QifDataType.TRANSACTIONS,
         date_format: str = "%Y-%m-%d",
-        ignore: Optional[List[str]] = None,
+        include: Optional[List[str]] = None,
+        exclude: Optional[List[str]] = None,
         delimiter: str = ",",
         quote_character: str = '"',
         encoding: str = "utf-8",
@@ -517,7 +519,10 @@ class Qif(BaseModel):
         date_format : str, optional
             The date format to use when converting dates to strings, by
             default '%Y-%m-%d'
-        ignore : List[str], optional
+        include : List[str], optional
+            A list of fields to include when converting to CSV, by default
+            None
+        exclude : List[str], optional
             A list of fields to ignore when converting to CSV, by default
             None
         delimiter : str, optional
@@ -528,13 +533,14 @@ class Qif(BaseModel):
         encoding : str, default='utf-8'
             The encoding to use when writing the CSV file
         """
-        if ignore is None:
-            ignore = []
+        if exclude is None:
+            exclude = []
 
         data_dicts = self._get_data_dicts(
             data_type=data_type,
             date_format=date_format,
-            ignore=ignore,
+            include=include,
+            exclude=exclude,
         )
 
         headers: Set[str] = set()
@@ -565,7 +571,8 @@ class Qif(BaseModel):
     def to_dataframe(
         self,
         data_type: QifDataType = QifDataType.TRANSACTIONS,
-        ignore: Optional[List[str]] = None,
+        include: Optional[List[str]] = None,
+        exclude: Optional[List[str]] = None,
     ) -> pd.DataFrame:
         """Convert part of the Qif object to a Pandas DataFrame. The
         data_type parameter can be used to specify which part of the Qif
@@ -577,9 +584,12 @@ class Qif(BaseModel):
         data_type : QifDataType, optional
             The type of data to convert to a DataFrame, by default
             QifDataType.TRANSACTIONS
-        ignore : List[str], optional
-            A list of fields to ignore when converting to a DataFrame, by
-            default None
+        include : List[str], optional
+            A list of fields to include when converting to CSV, by default
+            None
+        exclude : List[str], optional
+            A list of fields to ignore when converting to CSV, by default
+            None
 
         Returns
         -------
@@ -591,13 +601,14 @@ class Qif(BaseModel):
                 "The pandas module must be installed to use this method"
             )
 
-        if ignore is None:
-            ignore = []
+        if exclude is None:
+            exclude = []
 
         data_dicts = self._get_data_dicts(
             data_type=data_type,
             date_format=None,
-            ignore=ignore,
+            include=include,
+            exclude=ignore,
         )
 
         return pd.DataFrame(data_dicts)
@@ -605,14 +616,16 @@ class Qif(BaseModel):
     def to_data_dicts(
         self,
         data_type: QifDataType = QifDataType.TRANSACTIONS,
-        ignore: Optional[List[str]] = None,
+        include: Optional[List[str]] = None,
+        exclude: Optional[List[str]] = None,
     ) -> list[dict[str, Any]]:
-        if ignore is None:
-            ignore = []
+        if exclude is None:
+            exclude = []
 
         data_dicts = self._get_data_dicts(
             data_type=data_type,
             date_format=None,
-            ignore=ignore,
+            include=include,
+            exclude=exclude,
         )
         return data_dicts

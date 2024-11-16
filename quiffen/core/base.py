@@ -93,8 +93,8 @@ class BaseModel(PydanticBaseModel, Generic[T]):
         """Create a class instance from a string."""
         return cls.from_list(string.split(separator))
 
-    def to_dict(self, ignore: Optional[Iterable[str]] = None) -> Dict[str, Any]:
+    def to_dict(self, include: Optional[Iterable[str]] = None, exclude: Optional[Iterable[str]] = None) -> Dict[str, Any]:
         """Convert the class instance to a dict."""
-        if ignore is None:
-            ignore = []
-        return self.dict(exclude=set(ignore))
+        if exclude is None:
+            exclude = []
+        return self.dict(include=include, exclude=set(exclude))

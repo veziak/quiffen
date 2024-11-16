@@ -145,7 +145,7 @@ def test_to_dict_with_ignore():
         memo="Test Memo",
         commission=10,
     )
-    assert investment.to_dict(ignore=["action", "security"]) == {
+    assert investment.to_dict(exclude=["action", "security"]) == {
         "date": date,
         "price": Decimal("100"),
         "memo": "Test Memo",

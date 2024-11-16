@@ -127,7 +127,7 @@ def test_to_dict():
 def test_to_dict_with_ignore():
     """Test the to_dict method with ignore"""
     split = Split(amount=100, memo="Test Memo")
-    assert split.to_dict(ignore={"memo"}) == {
+    assert split.to_dict(exclude={"memo"}) == {
         "amount": 100,
         "category": None,
         "check_number": None,
@@ -145,7 +145,7 @@ def test_to_dict_with_ignore():
         memo="Test Memo",
         category=test_category,
     )
-    assert split2.to_dict(ignore={"memo", "category"}) == {
+    assert split2.to_dict(exclude={"memo", "category"}) == {
         "amount": 100,
         "check_number": None,
         "cleared": None,

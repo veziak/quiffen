@@ -102,7 +102,7 @@ class Transaction(BaseModel):
         Date: 2021-07-05 10:45:40.048195
         Amount: 150.6
         Category: Finances
-    >>> tr.to_dict(ignore=['date'], dictify_category=True)
+    >>> tr.to_dict(exclude=['date'], dictify_category=True)
     {
         'amount': 150.6,
         'category': {

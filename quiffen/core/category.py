@@ -181,17 +181,17 @@ class Category(BaseModel):
 
     # This is kept for backwards compatibility
     def to_dict(
-        self, ignore: Optional[Iterable[str]] = None, **kwargs
+        self, exclude: Optional[Iterable[str]] = None, **kwargs
     ) -> Dict[str, Any]:
         """Return a representation of the Category object as a dict.
 
         Parameters
         ----------
-        ignore : iterable of str
+        exclude : iterable of str
             A list of the object's attributes that should not be included in the
             resulting dict.
         """
-        return self.dict(exclude=ignore, **kwargs)
+        return self.dict(exclude=exclude, **kwargs)
 
     def traverse_down(self) -> List[Category]:
         """Return a flat list of all children, grandchildren etc. of the

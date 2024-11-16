@@ -161,7 +161,7 @@ def test_to_dict(tree):
 def test_to_dict_with_ignore():
     """Test converting a category to a dictionary with ignored fields"""
     category = Category(name="Test")
-    assert category.to_dict(ignore=["name"]) == {
+    assert category.to_dict(exclude=["name"]) == {
         "category_type": "expense",
         "children": [],
         "hierarchy": "Test",

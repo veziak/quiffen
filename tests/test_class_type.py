@@ -62,7 +62,7 @@ def test_to_dict():
 def test_to_dict_with_ignore():
     """Test the to_dict method with ignore"""
     cls = Class(name="Test", desc="Test Description")
-    assert cls.to_dict(ignore={"desc", "categories"}) == {"name": "Test"}
+    assert cls.to_dict(exclude={"desc", "categories"}) == {"name": "Test"}
 
 
 def test_add_category():

@@ -217,7 +217,7 @@ def test_to_dict_with_ignore():
         type="Test Type",
         goal="Test Goal",
     )
-    assert security.to_dict(ignore=["type", "line_number"]) == {
+    assert security.to_dict(exclude=["type", "line_number"]) == {
         "name": "Test Security",
         "symbol": "Test Symbol",
         "goal": "Test Goal",

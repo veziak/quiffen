@@ -334,7 +334,7 @@ def test_to_dict():
 def test_to_dict_with_ignore():
     """Test converting an account to a dictionary with ignored fields"""
     account = Account(name="Test Account")
-    account_dict = account.to_dict(ignore=["name", "desc"])
+    account_dict = account.to_dict(exclude=["name", "desc"])
     assert account_dict == {
         "account_type": None,
         "credit_limit": None,

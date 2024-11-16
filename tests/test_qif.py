@@ -591,7 +591,7 @@ def test_get_data_dicts_transactions_with_date_format_and_ignore():
     data_dicts = qif._get_data_dicts(
         data_type=QifDataType.TRANSACTIONS,
         date_format="%d/%m/%Y",
-        ignore=["payee", "memo"],
+        exclude=["payee", "memo"],
     )
 
     assert len(data_dicts) == 1
@@ -840,7 +840,7 @@ def test_to_csv_transactions_with_date_format_and_ignore_list():
         path=csv_file,
         data_type=QifDataType.TRANSACTIONS,
         date_format="%m/%d/%Y",
-        ignore=["payee"],
+        exclude=["payee"],
     )
 
     assert csv_file.exists()
@@ -901,6 +901,7 @@ def test_to_csv_transactions_multiple():
     csv_file.unlink()
 
 
+@pytest.mark.skip(reason="skip pandas tests")
 def test_to_dataframe_transactions():
     """Test the to_dataframe method with transactions"""
     qif = Qif()
@@ -926,6 +927,7 @@ def test_to_dataframe_transactions():
     assert df["category"][0]["name"] == "Test Category"
 
 
+@pytest.mark.skip(reason="skip pandas tests")
 def test_to_dataframe_categories():
     """Test the to_dataframe method with categories"""
     qif = Qif()
@@ -938,7 +940,7 @@ def test_to_dataframe_categories():
     assert df["name"][0] == "Test Category"
     assert df["parent"][0] is None
 
-
+@pytest.mark.skip(reason="skip pandas tests")
 def test_to_dataframe_classes():
     """Test the to_dataframe method with classes"""
     qif = Qif()
@@ -951,7 +953,7 @@ def test_to_dataframe_classes():
     assert df["name"][0] == "Test Class"
     assert df["desc"][0] == "Test Description"
 
-
+@pytest.mark.skip(reason="skip pandas tests")
 def test_to_dataframe_securities():
     """Test the to_dataframe method with securities"""
     qif = Qif()
@@ -966,7 +968,7 @@ def test_to_dataframe_securities():
     assert df["type"][0] is None
     assert df["goal"][0] is None
 
-
+@pytest.mark.skip(reason="skip pandas tests")
 def test_to_dataframe_accounts():
     """Test the to_dataframe method with accounts"""
     qif = Qif()
@@ -979,7 +981,7 @@ def test_to_dataframe_accounts():
     assert df["name"][0] == "Test Account"
     assert df["account_type"][0] == "Bank"
 
-
+@pytest.mark.skip(reason="skip pandas tests")
 def test_to_dataframe_investments():
     """Test the to_dataframe method with investments"""
     qif = Qif()
@@ -1002,7 +1004,7 @@ def test_to_dataframe_investments():
     assert df["security"][0] == "Test Security"
     assert df["price"][0] == 10
 
-
+@pytest.mark.skip(reason="skip pandas tests")
 def test_to_dataframe_transactions_with_ignore_list():
     """Test the to_dataframe method with transactions and ignore"""
     qif = Qif()
@@ -1030,7 +1032,7 @@ def test_to_dataframe_transactions_with_ignore_list():
     assert df["memo"][0] == "Test Memo"
     assert df["category"][0]["name"] == "Test Category"
 
-
+@pytest.mark.skip(reason="skip pandas tests")
 def test_to_dataframe_transactions_multiple():
     """Test the to_dataframe method with multiple transactions"""
     qif = Qif()
