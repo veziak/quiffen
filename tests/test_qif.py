@@ -601,6 +601,36 @@ def test_get_data_dicts_transactions_with_date_format_and_ignore():
     del expected["memo"]
     assert data_dicts[0] == expected
 
+def test_get_data_dicts_transactions_with_date_format_and_include():
+    """Test the get_data_dicts method with transactions and date format and
+    include"""
+    qif = Qif()
+    account = Account(name="Test Account")
+    transaction = Transaction(
+        date=datetime(2019, 1, 1),
+        amount=Decimal("100"),
+        payee="Test Payee",
+        memo="Test Memo",
+        category=Category(name="Test Category"),
+    )
+    account.set_header(AccountType.BANK)
+    account.add_transaction(transaction)
+    qif.add_account(account)
+    data_dicts = qif._get_data_dicts(
+        data_type=QifDataType.TRANSACTIONS,
+        date_format="%d/%m/%Y",
+        include=["payee", "memo"],
+    )
+
+    assert len(data_dicts) == 1
+    expected = transaction.to_dict()
+    expected["payee"] = "Test Payee"
+    expected["memo"] = "Test Memo"
+    del expected["date"]
+    del expected["amount"]
+    del expected["category"]
+
+    assert data_dicts[0] == expected
 
 def test_get_data_dicts_categories():
     """Test the get_data_dicts method with categories"""
