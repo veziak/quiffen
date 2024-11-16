@@ -601,6 +601,7 @@ def test_get_data_dicts_transactions_with_date_format_and_ignore():
     del expected["memo"]
     assert data_dicts[0] == expected
 
+
 def test_get_data_dicts_transactions_with_date_format_and_include():
     """Test the get_data_dicts method with transactions and date format and
     include"""
@@ -631,6 +632,7 @@ def test_get_data_dicts_transactions_with_date_format_and_include():
     del expected["category"]
 
     assert data_dicts[0] == expected
+
 
 def test_get_data_dicts_categories():
     """Test the get_data_dicts method with categories"""
@@ -970,6 +972,7 @@ def test_to_dataframe_categories():
     assert df["name"][0] == "Test Category"
     assert df["parent"][0] is None
 
+
 @pytest.mark.skip(reason="skip pandas tests")
 def test_to_dataframe_classes():
     """Test the to_dataframe method with classes"""
@@ -982,6 +985,7 @@ def test_to_dataframe_classes():
     assert df.shape == (1, 3)
     assert df["name"][0] == "Test Class"
     assert df["desc"][0] == "Test Description"
+
 
 @pytest.mark.skip(reason="skip pandas tests")
 def test_to_dataframe_securities():
@@ -998,6 +1002,7 @@ def test_to_dataframe_securities():
     assert df["type"][0] is None
     assert df["goal"][0] is None
 
+
 @pytest.mark.skip(reason="skip pandas tests")
 def test_to_dataframe_accounts():
     """Test the to_dataframe method with accounts"""
@@ -1010,6 +1015,7 @@ def test_to_dataframe_accounts():
     assert df.shape == (1, 7)
     assert df["name"][0] == "Test Account"
     assert df["account_type"][0] == "Bank"
+
 
 @pytest.mark.skip(reason="skip pandas tests")
 def test_to_dataframe_investments():
@@ -1033,6 +1039,7 @@ def test_to_dataframe_investments():
     assert df["amount"][0] == 100
     assert df["security"][0] == "Test Security"
     assert df["price"][0] == 10
+
 
 @pytest.mark.skip(reason="skip pandas tests")
 def test_to_dataframe_transactions_with_ignore_list():
@@ -1061,6 +1068,7 @@ def test_to_dataframe_transactions_with_ignore_list():
     assert "payee" not in df.columns
     assert df["memo"][0] == "Test Memo"
     assert df["category"][0]["name"] == "Test Category"
+
 
 @pytest.mark.skip(reason="skip pandas tests")
 def test_to_dataframe_transactions_multiple():
