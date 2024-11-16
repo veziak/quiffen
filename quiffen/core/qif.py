@@ -601,3 +601,18 @@ class Qif(BaseModel):
         )
 
         return pd.DataFrame(data_dicts)
+
+    def to_data_dicts(
+        self,
+        data_type: QifDataType = QifDataType.TRANSACTIONS,
+        ignore: Optional[List[str]] = None,
+    ) -> list[dict[str, Any]]:
+        if ignore is None:
+            ignore = []
+
+        data_dicts = self._get_data_dicts(
+            data_type=data_type,
+            date_format=None,
+            ignore=ignore,
+        )
+        return data_dicts
