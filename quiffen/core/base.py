@@ -95,6 +95,8 @@ class BaseModel(PydanticBaseModel, Generic[T]):
 
     def to_dict(self, include: Optional[Iterable[str]] = None, exclude: Optional[Iterable[str]] = None) -> Dict[str, Any]:
         """Convert the class instance to a dict."""
-        if exclude is None:
-            exclude = []
-        return self.dict(include=include, exclude=set(exclude))
+        if exclude is not None:
+            exclude = set(exclude)
+        if include is not None:
+            include = set(include)
+        return self.dict(include=include, exclude=exclude)

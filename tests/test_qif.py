@@ -624,13 +624,7 @@ def test_get_data_dicts_transactions_with_date_format_and_include():
     )
 
     assert len(data_dicts) == 1
-    expected = transaction.to_dict()
-    expected["payee"] = "Test Payee"
-    expected["memo"] = "Test Memo"
-    del expected["date"]
-    del expected["amount"]
-    del expected["category"]
-
+    expected = {"payee": "Test Payee", "memo": "Test Memo"}
     assert data_dicts[0] == expected
 
 
