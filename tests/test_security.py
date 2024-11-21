@@ -184,8 +184,8 @@ def test_from_string_default_separator():
 
 def test_from_string_custom_separator():
     """Test creating a security from a string with a custom separator"""
-    qif_string = "NTest Security---" "STest Symbol---" "TTest Type---" "GTest Goal---"
-    security = Security.from_string(qif_string, separator="---")
+    qif_string = "NTest Security\r\n" "STest Symbol\r\n" "TTest Type\r\n" "GTest Goal\r\n"
+    security = Security.from_string(qif_string)
     assert security.name == "Test Security"
     assert security.symbol == "Test Symbol"
     assert security.type == "Test Type"

@@ -298,15 +298,15 @@ def test_from_string_default_separator():
 def test_from_string_custom_separator():
     """Test creating an account from a string with a custom separator"""
     qif_string = (
-        "!This should be ignored---"
-        "NTest Account---"
-        "DTest Description---"
-        "TCCard---"
-        "L1000---"
-        "$100---"
-        "/2022-02-01---"
+        "!This should be ignored\r\n"
+        "NTest Account\r\n"
+        "DTest Description\r\n"
+        "TCCard\r\n"
+        "L1000\r\n"
+        "$100\r\n"
+        "/2022-02-01\r\n"
     )
-    account = Account.from_string(qif_string, separator="---")
+    account = Account.from_string(qif_string)
     assert account.name == "Test Account"
     assert account.desc == "Test Description"
     assert account.account_type == "CCard"

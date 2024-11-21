@@ -520,7 +520,6 @@ class Transaction(BaseModel):
     def from_string(
         cls,
         string: str,
-        separator: str = "\n",
         day_first: bool = False,
         line_number: Optional[int] = None,
     ) -> Tuple[Transaction, Dict[str, Class]]:
@@ -530,8 +529,6 @@ class Transaction(BaseModel):
         ----------
         string : str
             String containing QIF information about the transaction.
-        separator : str, default='\n'
-            The separator between QIF fields.
         day_first : bool, default=False
              Whether the day or month comes first in the date.
         line_number : int, default=None
@@ -545,7 +542,7 @@ class Transaction(BaseModel):
         Dict[str, Class]
             A dictionary of classes created from the QIF strings.
         """
-        lines = string.split(separator)
+        lines = string.splitlines()
         return cls.from_list(lines, day_first, line_number)
 
 

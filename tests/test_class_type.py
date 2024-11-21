@@ -178,7 +178,7 @@ def test_from_string_default_separator():
 
 def test_from_string_custom_separator():
     """Test creating a class from a QIF string with a custom separator"""
-    qif_string = "NTest---" "DTest Description---"
-    cls = Class.from_string(qif_string, separator="---")
+    qif_string = "NTest\r\n" "DTest Description\r\n"
+    cls = Class.from_string(qif_string)
     assert cls.name == "Test"
     assert cls.desc == "Test Description"

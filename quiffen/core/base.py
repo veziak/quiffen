@@ -89,9 +89,9 @@ class BaseModel(PydanticBaseModel, Generic[T]):
         pass
 
     @classmethod
-    def from_string(cls, string: str, separator: str = "\n") -> T:
+    def from_string(cls, string: str) -> T:
         """Create a class instance from a string."""
-        return cls.from_list(string.split(separator))
+        return cls.from_list(string.splitlines())
 
     def to_dict(self, include: Optional[Iterable[str]] = None, exclude: Optional[Iterable[str]] = None) -> Dict[str, Any]:
         """Convert the class instance to a dict."""

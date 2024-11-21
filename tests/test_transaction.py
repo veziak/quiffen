@@ -784,12 +784,12 @@ def test_from_string_default_separator():
 def test_from_string_custom_separator():
     """Test creating a transaction from a string with a custom separator"""
     qif_string = (
-        "D2022-02-01---"
-        "T1000---"
-        "L[Test To Account]---"  # Brackets denote to account
+        "D2022-02-01\r\n"
+        "T1000\r\n"
+        "L[Test To Account]\r\n"  # Brackets denote to account
         "LTest Category"
     )
-    transaction, _ = Transaction.from_string(qif_string, separator="---")
+    transaction, _ = Transaction.from_string(qif_string)
     assert transaction.date == datetime(2022, 2, 1)
     assert transaction.amount == 1000
     assert transaction.to_account == "Test To Account"

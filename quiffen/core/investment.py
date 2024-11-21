@@ -190,7 +190,6 @@ class Investment(BaseModel):
     def from_string(
         cls,
         string: str,
-        separator: str = "\n",
         day_first: bool = False,
         line_number: Optional[int] = None,
     ) -> Investment:
@@ -200,8 +199,6 @@ class Investment(BaseModel):
         ----------
         string : str
             String containing QIF information about the investment.
-        separator : str, default='\n'
-            The separator between QIF fields.
         day_first : bool, default=False
             Whether the day or month comes first in the date.
         line_number : int, default=None
@@ -213,5 +210,5 @@ class Investment(BaseModel):
         Investment
             An Investment object created from the QIF string.
         """
-        lst = string.split(separator)
+        lst = string.splitlines()
         return cls.from_list(lst, day_first, line_number)

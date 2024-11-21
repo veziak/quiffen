@@ -134,7 +134,6 @@ class Security(BaseModel):
     def from_string(
         cls,
         string: str,
-        separator: str = "\n",
         line_number: Optional[int] = None,
     ) -> Security:
         """Return a class instance from a QIF string.
@@ -143,8 +142,6 @@ class Security(BaseModel):
         ----------
         string : str
             String containing QIF information about the transaction.
-        separator : str, default='\n'
-            The separator between QIF fields.
         line_number : int, default=None
             The line number of the header line of the transaction in the QIF
             file.
@@ -155,6 +152,6 @@ class Security(BaseModel):
             A class instance representing the security.
         """
         return cls.from_list(
-            lst=string.split(separator),
+            lst=string.splitlines(),
             line_number=line_number,
         )

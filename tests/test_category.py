@@ -668,14 +668,14 @@ def test_from_string_default_separator():
 def test_from_string_custom_separator():
     """Test creating a category from a QIF string with a custom separator"""
     qif_string = (
-        "NParent---"
-        "DSome category description---"
-        "E---"
-        "T---"
-        "B123.45---"
-        "RTax schedule info---"
+        "NParent\r\n"
+        "DSome category description\r\n"
+        "E\r\n"
+        "T\r\n"
+        "B123.45\r\n"
+        "RTax schedule info\r\n"
     )
-    category = Category.from_string(qif_string, separator="---")
+    category = Category.from_string(qif_string)
     assert category.name == "Parent"
     assert category.desc == "Some category description"
     assert category.category_type == "expense"

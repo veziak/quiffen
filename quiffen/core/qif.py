@@ -106,7 +106,6 @@ class Qif(BaseModel):
     def parse_data(
         cls,
         data: str,
-        separator: str = "\n",
         day_first: bool = False,
     ) -> Qif:
         data = data.strip().strip("\n")
@@ -124,7 +123,7 @@ class Qif(BaseModel):
             if not section:
                 continue
 
-            section_lines = section.split(separator)
+            section_lines = section.splitlines()
             if not section_lines:
                 continue
 
@@ -280,7 +279,6 @@ class Qif(BaseModel):
     def parse(
         cls,
         path: Union[FilePath, str],
-        separator: str = "\n",
         day_first: bool = False,
         encoding: str = "utf-8",
     ) -> Qif:
@@ -290,9 +288,6 @@ class Qif(BaseModel):
         ----------
         path : Union[FilePath, str]
             The path to the QIF file.
-        separator : str, default='\n'
-            The line separator for the QIF file. This probably won't need
-            changing.
         day_first : bool, default=False
             Whether the day or month comes first in the date.
         encoding : str, default='utf-8'
@@ -315,7 +310,7 @@ class Qif(BaseModel):
         if not data:
             raise ParserException("The file is empty.")
 
-        return cls.parse_data(data, separator, day_first)
+        return cls.parse_data(data, day_first)
 
     def add_account(self, new_account: Account) -> None:
         """Add a new account to the Qif object"""
