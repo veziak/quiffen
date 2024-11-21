@@ -483,7 +483,7 @@ class Transaction(BaseModel):
             kwargs["line_number"] = line_number
 
         # Set splits percentage if they don't already have one
-        total = utils.parse_decimal(kwargs.get("amount", 0))
+        total = utils.parse_decimal(kwargs.get("amount", "0.0"))
         if splits and total:
             for split in splits:
                 if split.percent is None and split.amount is not None:
