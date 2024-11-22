@@ -414,7 +414,10 @@ class Transaction(BaseModel):
                 elif current_split:
                     current_split.cleared = field_info
             elif line_code == "P":
-                kwargs["payee"] = field_info
+                if "payee" in kwargs:
+                    kwargs["payee"] = f"{kwargs["payee"]},{field_info}"
+                else:
+                    kwargs["payee"] = field_info
             elif line_code == "A":
                 if not splits:
                     kwargs["payee_address"] = field_info
