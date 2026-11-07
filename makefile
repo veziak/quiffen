@@ -2,19 +2,19 @@ PKG_NAME = 	quiffen
 
 .PHONY:		test
 test:
-		( cd tests ; poetry run pytest )
+		( cd tests ; uv run pytest )
 
 .PHONY:     lint
 lint:
-        ( poetry run pylint $(PKG_NAME); poetry run pylint tests )
+        ( uv run pylint $(PKG_NAME); uv run pylint tests )
 
 .PHONY:		wheel
 wheel:
-		poetry build -f wheel
+		uv build --wheel
 
 .PHONY:		install
 install:	wheel
-		poetry install
+		uv sync
 
 .PHONY:		reinstall
 reinstall:	clean install

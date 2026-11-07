@@ -1,14 +1,12 @@
-[tool.poetry]
+[project]
 name = "quiffen"
 version = "2.0.13"
 description = "Quiffen"
-authors = ["Isaac Harris-Holt <isaac@harris-holt.com>"]
+authors = [{ name = "Isaac Harris-Holt", email = "isaac@harris-holt.com" }]
 license = "GPL-3.0-or-later"
 readme = "README.rst"
-homepage = "https://github.com/isaacharrisholt/quiffen"
-repository = "https://github.com/isaacharrisholt/quiffen"
-documentation = "https://quiffen.readthedocs.io/en/latest/"
-keywords = ['qif', 'finance', 'data processing']
+requires-python = ">=3.11"
+keywords = ["qif", "finance", "data processing"]
 classifiers = [
   "Development Status :: 5 - Production/Stable",
   "Intended Audience :: Developers",
@@ -16,27 +14,34 @@ classifiers = [
   "Operating System :: MacOS :: MacOS X",
   "Operating System :: Microsoft :: Windows",
 ]
+dependencies = [
+  "pydantic>=1.10.2,<2",
+  "python-dateutil>=4.0.0,<5",
+]
 
+[project.urls]
+Homepage = "https://github.com/isaacharrisholt/quiffen"
+Repository = "https://github.com/isaacharrisholt/quiffen"
+Documentation = "https://quiffen.readthedocs.io/en/latest/"
 
-[tool.poetry.dependencies]
-python = ">=3.11"
-pydantic = "^1.10.2"
-python-dateutil = "^4.0.0"
-
-
-[tool.poetry.group.dev.dependencies]
-pytest = "^7.2.0"
-black = "^24.0.0"
-isort = "^5.12.0"
-ruff = "^0.7.0"
-tox = "^4.4.6"
-pyright = "^1.1.296"
-pre-commit = "^3.1.1"
-
+[dependency-groups]
+dev = [
+  "pytest>=7.2.0,<8",
+  "black>=24.0.0,<25",
+  "isort>=5.12.0,<6",
+  "ruff>=0.7.0,<0.8",
+  "tox>=4.4.6,<5",
+  "tox-uv>=1.0.0",
+  "pyright>=1.1.296,<2",
+  "pre-commit>=3.1.1,<4",
+]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["quiffen"]
 
 [tool.isort]
 profile = "black"
