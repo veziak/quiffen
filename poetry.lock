@@ -545,6 +545,7 @@ pluggy = ">=1.6"
 pyproject-api = ">=1.10"
 python-discovery = ">=1.9"
 tomli-w = ">=1.2"
+typing-extensions = {version = ">=4.15", markers = "python_version < \"3.13\""}
 virtualenv = ">=21.1"
 
 [package.extras]
@@ -596,5 +597,5 @@ python-discovery = ">=1.6.1"
 
 [metadata]
 lock-version = "2.1"
-python-versions = ">=3.14"
-content-hash = "3dc7ba8084413bf191e5945b48a1fc25a5441c5b3b368c5af4b5939b69f0a848"
+python-versions = ">=3.11"
+content-hash = "e790affc4e62d1c044638f95baca70d2ca09a3d6db1d6b14333c9394c7e67bfb"
