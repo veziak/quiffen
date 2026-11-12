@@ -15,7 +15,7 @@ classifiers = [
   "Operating System :: Microsoft :: Windows",
 ]
 dependencies = [
-  "pydantic>=1.10.2,<2",
+  "pydantic>=2.14.3,<3",
   "python-dateutil>=4.0.0,<5",
 ]
 
